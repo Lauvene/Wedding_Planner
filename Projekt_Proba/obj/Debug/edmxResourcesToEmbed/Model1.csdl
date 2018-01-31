@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BazaProjektModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Lokacija">
+    <Key>
+      <PropertyRef Name="Id_lokacija" />
+    </Key>
+    <Property Name="Id_lokacija" Type="Int32" Nullable="false" />
+    <Property Name="Naziv_lokacija" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Kontakts" Relationship="Self.FK_Kontakt_Lok" FromRole="Lokacija" ToRole="Kontakt" />
+    <NavigationProperty Name="Korisniks" Relationship="Self.Korisnik_lok_fk" FromRole="Lokacija" ToRole="Korisnik" />
+  </EntityType>
+  <EntityType Name="Osoba">
+    <Key>
+      <PropertyRef Name="Id_osoba" />
+    </Key>
+    <Property Name="Id_osoba" Type="Int32" Nullable="false" />
+    <Property Name="Ime" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Prezime" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="E_mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Podsjetnik">
+    <Key>
+      <PropertyRef Name="Id_podsjetnika" />
+    </Key>
+    <Property Name="Id_podsjetnika" Type="Int32" Nullable="false" />
+    <Property Name="Naziv_podsjetnika" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Datum" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="Stol">
+    <Key>
+      <PropertyRef Name="Id_stol" />
+    </Key>
+    <Property Name="Id_stol" Type="Int32" Nullable="false" />
+    <Property Name="Naziv_stola" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Broj_stolica" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Gosts" Relationship="Self.FK_Gost_Stol_ID" FromRole="Stol" ToRole="Gost" />
+  </EntityType>
+  <EntityType Name="Trosak">
+    <Key>
+      <PropertyRef Name="Id_troska" />
+    </Key>
+    <Property Name="Id_troska" Type="Int32" Nullable="false" />
+    <Property Name="Opis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Cijena" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Gost">
+    <Key>
+      <PropertyRef Name="Napomena" />
+      <PropertyRef Name="Stol_ID" />
+    </Key>
+    <Property Name="Napomena" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Stol_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Stol" Relationship="Self.FK_Gost_Stol_ID" FromRole="Gost" ToRole="Stol" />
+  </EntityType>
+  <EntityType Name="Kontakt">
+    <Key>
+      <PropertyRef Name="Kontakt_telefon" />
+      <PropertyRef Name="Id_lok" />
+    </Key>
+    <Property Name="Kontakt_telefon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Id_lok" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Lokacija" Relationship="Self.FK_Kontakt_Lok" FromRole="Kontakt" ToRole="Lokacija" />
+  </EntityType>
+  <EntityType Name="Korisnik">
+    <Key>
+      <PropertyRef Name="Username" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="Korisnik_lok" />
+    </Key>
+    <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Datum_vjencanja" Type="DateTime" Precision="0" />
+    <Property Name="Budzet" Type="Double" />
+    <Property Name="Broj_gostiju" Type="Int32" />
+    <Property Name="Korisnik_lok" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Lokacija" Relationship="Self.Korisnik_lok_fk" FromRole="Korisnik" ToRole="Lokacija" />
+  </EntityType>
+  <Association Name="FK_Kontakt_Lok">
+    <End Role="Lokacija" Type="Self.Lokacija" Multiplicity="1" />
+    <End Role="Kontakt" Type="Self.Kontakt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lokacija">
+        <PropertyRef Name="Id_lokacija" />
+      </Principal>
+      <Dependent Role="Kontakt">
+        <PropertyRef Name="Id_lok" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Korisnik_lok_fk">
+    <End Role="Lokacija" Type="Self.Lokacija" Multiplicity="1" />
+    <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lokacija">
+        <PropertyRef Name="Id_lokacija" />
+      </Principal>
+      <Dependent Role="Korisnik">
+        <PropertyRef Name="Korisnik_lok" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gost_Stol_ID">
+    <End Role="Stol" Type="Self.Stol" Multiplicity="1" />
+    <End Role="Gost" Type="Self.Gost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stol">
+        <PropertyRef Name="Id_stol" />
+      </Principal>
+      <Dependent Role="Gost">
+        <PropertyRef Name="Stol_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BazaProjektEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Lokacijas" EntityType="Self.Lokacija" />
+    <EntitySet Name="Osobas" EntityType="Self.Osoba" />
+    <EntitySet Name="Podsjetniks" EntityType="Self.Podsjetnik" />
+    <EntitySet Name="Stols" EntityType="Self.Stol" />
+    <EntitySet Name="Trosaks" EntityType="Self.Trosak" />
+    <EntitySet Name="Gosts" EntityType="Self.Gost" />
+    <EntitySet Name="Kontakts" EntityType="Self.Kontakt" />
+    <EntitySet Name="Korisniks" EntityType="Self.Korisnik" />
+    <AssociationSet Name="FK_Kontakt_Lok" Association="Self.FK_Kontakt_Lok">
+      <End Role="Lokacija" EntitySet="Lokacijas" />
+      <End Role="Kontakt" EntitySet="Kontakts" />
+    </AssociationSet>
+    <AssociationSet Name="Korisnik_lok_fk" Association="Self.Korisnik_lok_fk">
+      <End Role="Lokacija" EntitySet="Lokacijas" />
+      <End Role="Korisnik" EntitySet="Korisniks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gost_Stol_ID" Association="Self.FK_Gost_Stol_ID">
+      <End Role="Stol" EntitySet="Stols" />
+      <End Role="Gost" EntitySet="Gosts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

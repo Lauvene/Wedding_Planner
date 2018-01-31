@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BazaProjektModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ZMAJII\SOURCE\REPOS\PROJEKT_PROBA\PROJEKT_PROBA\BAZAPROJEKT.MDF.dbo.Gost' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Gost">
+    <Key>
+      <PropertyRef Name="Napomena" />
+      <PropertyRef Name="Stol_ID" />
+    </Key>
+    <Property Name="Napomena" Type="text" Nullable="false" />
+    <Property Name="Stol_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ZMAJII\SOURCE\REPOS\PROJEKT_PROBA\PROJEKT_PROBA\BAZAPROJEKT.MDF.dbo.Kontakt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Kontakt">
+    <Key>
+      <PropertyRef Name="Kontakt_telefon" />
+      <PropertyRef Name="Id_lok" />
+    </Key>
+    <Property Name="Kontakt_telefon" Type="text" Nullable="false" />
+    <Property Name="Id_lok" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\ZMAJII\SOURCE\REPOS\PROJEKT_PROBA\PROJEKT_PROBA\BAZAPROJEKT.MDF.dbo.Korisnik' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Korisnik">
+    <Key>
+      <PropertyRef Name="Username" />
+      <PropertyRef Name="Password" />
+      <PropertyRef Name="Korisnik_lok" />
+    </Key>
+    <Property Name="Username" Type="text" Nullable="false" />
+    <Property Name="Password" Type="text" Nullable="false" />
+    <Property Name="Datum_vjencanja" Type="date" />
+    <Property Name="Budzet" Type="float" />
+    <Property Name="Broj_gostiju" Type="int" />
+    <Property Name="Korisnik_lok" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Lokacija">
+    <Key>
+      <PropertyRef Name="Id_lokacija" />
+    </Key>
+    <Property Name="Id_lokacija" Type="int" Nullable="false" />
+    <Property Name="Naziv_lokacija" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Osoba">
+    <Key>
+      <PropertyRef Name="Id_osoba" />
+    </Key>
+    <Property Name="Id_osoba" Type="int" Nullable="false" />
+    <Property Name="Ime" Type="text" Nullable="false" />
+    <Property Name="Prezime" Type="text" Nullable="false" />
+    <Property Name="E-mail" Type="text" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Podsjetnik">
+    <Key>
+      <PropertyRef Name="Id_podsjetnika" />
+    </Key>
+    <Property Name="Id_podsjetnika" Type="int" Nullable="false" />
+    <Property Name="Naziv_podsjetnika" Type="text" Nullable="false" />
+    <Property Name="Datum" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stol">
+    <Key>
+      <PropertyRef Name="Id_stol" />
+    </Key>
+    <Property Name="Id_stol" Type="int" Nullable="false" />
+    <Property Name="Naziv_stola" Type="text" Nullable="false" />
+    <Property Name="Broj_stolica" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Trosak">
+    <Key>
+      <PropertyRef Name="Id_troska" />
+    </Key>
+    <Property Name="Id_troska" Type="int" Nullable="false" />
+    <Property Name="Opis" Type="text" />
+    <Property Name="Cijena" Type="money" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Gost_Stol_ID">
+    <End Role="Stol" Type="Self.Stol" Multiplicity="1" />
+    <End Role="Gost" Type="Self.Gost" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stol">
+        <PropertyRef Name="Id_stol" />
+      </Principal>
+      <Dependent Role="Gost">
+        <PropertyRef Name="Stol_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kontakt_Lok">
+    <End Role="Lokacija" Type="Self.Lokacija" Multiplicity="1" />
+    <End Role="Kontakt" Type="Self.Kontakt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lokacija">
+        <PropertyRef Name="Id_lokacija" />
+      </Principal>
+      <Dependent Role="Kontakt">
+        <PropertyRef Name="Id_lok" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Korisnik_lok_fk">
+    <End Role="Lokacija" Type="Self.Lokacija" Multiplicity="1" />
+    <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lokacija">
+        <PropertyRef Name="Id_lokacija" />
+      </Principal>
+      <Dependent Role="Korisnik">
+        <PropertyRef Name="Korisnik_lok" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BazaProjektModelStoreContainer">
+    <EntitySet Name="Lokacija" EntityType="Self.Lokacija" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Osoba" EntityType="Self.Osoba" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Podsjetnik" EntityType="Self.Podsjetnik" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stol" EntityType="Self.Stol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trosak" EntityType="Self.Trosak" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gost" EntityType="Self.Gost" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Gost].[Napomena] AS [Napomena], 
+    [Gost].[Stol_ID] AS [Stol_ID]
+    FROM [dbo].[Gost] AS [Gost]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Kontakt" EntityType="Self.Kontakt" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Kontakt].[Kontakt_telefon] AS [Kontakt_telefon], 
+    [Kontakt].[Id_lok] AS [Id_lok]
+    FROM [dbo].[Kontakt] AS [Kontakt]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Korisnik" EntityType="Self.Korisnik" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Korisnik].[Username] AS [Username], 
+    [Korisnik].[Password] AS [Password], 
+    [Korisnik].[Datum_vjencanja] AS [Datum_vjencanja], 
+    [Korisnik].[Budzet] AS [Budzet], 
+    [Korisnik].[Broj_gostiju] AS [Broj_gostiju], 
+    [Korisnik].[Korisnik_lok] AS [Korisnik_lok]
+    FROM [dbo].[Korisnik] AS [Korisnik]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Gost_Stol_ID" Association="Self.FK_Gost_Stol_ID">
+      <End Role="Stol" EntitySet="Stol" />
+      <End Role="Gost" EntitySet="Gost" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kontakt_Lok" Association="Self.FK_Kontakt_Lok">
+      <End Role="Lokacija" EntitySet="Lokacija" />
+      <End Role="Kontakt" EntitySet="Kontakt" />
+    </AssociationSet>
+    <AssociationSet Name="Korisnik_lok_fk" Association="Self.Korisnik_lok_fk">
+      <End Role="Lokacija" EntitySet="Lokacija" />
+      <End Role="Korisnik" EntitySet="Korisnik" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

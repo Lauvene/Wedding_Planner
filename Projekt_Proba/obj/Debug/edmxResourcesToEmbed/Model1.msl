@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BazaProjektModelStoreContainer" CdmEntityContainer="BazaProjektEntities1">
+    <EntitySetMapping Name="Lokacijas">
+      <EntityTypeMapping TypeName="BazaProjektModel.Lokacija">
+        <MappingFragment StoreEntitySet="Lokacija">
+          <ScalarProperty Name="Id_lokacija" ColumnName="Id_lokacija" />
+          <ScalarProperty Name="Naziv_lokacija" ColumnName="Naziv_lokacija" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Osobas">
+      <EntityTypeMapping TypeName="BazaProjektModel.Osoba">
+        <MappingFragment StoreEntitySet="Osoba">
+          <ScalarProperty Name="Id_osoba" ColumnName="Id_osoba" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="E_mail" ColumnName="E-mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Podsjetniks">
+      <EntityTypeMapping TypeName="BazaProjektModel.Podsjetnik">
+        <MappingFragment StoreEntitySet="Podsjetnik">
+          <ScalarProperty Name="Id_podsjetnika" ColumnName="Id_podsjetnika" />
+          <ScalarProperty Name="Naziv_podsjetnika" ColumnName="Naziv_podsjetnika" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stols">
+      <EntityTypeMapping TypeName="BazaProjektModel.Stol">
+        <MappingFragment StoreEntitySet="Stol">
+          <ScalarProperty Name="Id_stol" ColumnName="Id_stol" />
+          <ScalarProperty Name="Naziv_stola" ColumnName="Naziv_stola" />
+          <ScalarProperty Name="Broj_stolica" ColumnName="Broj_stolica" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Trosaks">
+      <EntityTypeMapping TypeName="BazaProjektModel.Trosak">
+        <MappingFragment StoreEntitySet="Trosak">
+          <ScalarProperty Name="Id_troska" ColumnName="Id_troska" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+          <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gosts">
+      <EntityTypeMapping TypeName="BazaProjektModel.Gost">
+        <MappingFragment StoreEntitySet="Gost">
+          <ScalarProperty Name="Napomena" ColumnName="Napomena" />
+          <ScalarProperty Name="Stol_ID" ColumnName="Stol_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kontakts">
+      <EntityTypeMapping TypeName="BazaProjektModel.Kontakt">
+        <MappingFragment StoreEntitySet="Kontakt">
+          <ScalarProperty Name="Kontakt_telefon" ColumnName="Kontakt_telefon" />
+          <ScalarProperty Name="Id_lok" ColumnName="Id_lok" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Korisniks">
+      <EntityTypeMapping TypeName="BazaProjektModel.Korisnik">
+        <MappingFragment StoreEntitySet="Korisnik">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Datum_vjencanja" ColumnName="Datum_vjencanja" />
+          <ScalarProperty Name="Budzet" ColumnName="Budzet" />
+          <ScalarProperty Name="Broj_gostiju" ColumnName="Broj_gostiju" />
+          <ScalarProperty Name="Korisnik_lok" ColumnName="Korisnik_lok" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
